@@ -1,6 +1,14 @@
 #ifndef GLOBAL_VARS_H
 #define GLOBAL_VARS_H
 
+#ifdef DEBUG
+#define DEBUG_PRINT(x) Serial.print(x)
+#define DEBUG_PRINTLN(x) Serial.println(x)
+#else
+#define DEBUG_PRINT(x)
+#define DEBUG_PRINTLN(x)
+#endif
+
 namespace SYSTEM_CONFIG
 {
     const byte  PIN_ENABLE_MOTORS   = 2;                 // Pin number to enable motors

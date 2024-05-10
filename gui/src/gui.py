@@ -6,7 +6,7 @@ import struct
 from tkinter import scrolledtext
 
 # Set up the serial connection (adjust the port name and baudrate as per your setup)
-SERIAL_PORT = 'COM6'  # Change this to the correct port
+SERIAL_PORT = 'COM7'  # Change this to the correct port
 BAUD_RATE = 115200
 
 try:
