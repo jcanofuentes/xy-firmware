@@ -26,7 +26,7 @@ public:
         }
     }
 
-    void goOrigin()
+    void goToOrigin()
     {
         movingToOrigin = true;
         stepper.moveTo(-999999); // Move stepper to a large negative position to ensure it hits the limit switch
@@ -49,6 +49,11 @@ public:
     long currentPositionInMillimeters()
     {
         return stepsToMillimeters(stepper.currentPosition());
+    }
+
+    bool isAtOrigin()
+    {
+        return stepper.currentPosition() == 0;
     }
 
 private:

@@ -3,6 +3,7 @@
 
 #include "CommandData.h"
 # include <Arduino.h>
+# include <Streaming.h>
 
 class MessageBus
 {
@@ -12,7 +13,9 @@ public:
 
     void sendMessage(const CommandData& data)
     {
-        // Serial << "MessageBus sendMessage: " << data << endl;
+        Serial.write(data.command);
+        Serial.write((byte)(data.value >> 8));
+        Serial.write((byte)(data.value & 0xFF));
     }
 };
 

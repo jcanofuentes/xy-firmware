@@ -31,11 +31,21 @@ def send_command():
 
 
 def read_from_serial():
+    expected_data_size = struct.calcsize('ch')  # Calcula el tamaño de la estructura 'char' + 'short' (2 bytes + 1 byte)
+    
     while True:
         if ser.in_waiting > 0:
-            data = ser.read(ser.in_waiting).decode('utf-8', errors='replace')
-            output_text.insert(tk.END, data + '\n')
-            output_text.see(tk.END)
+            command = ser.read(1)  # Leer el byte del comando
+            # Convert to char
+            command = command.decode('utf-8')
+            value_bytes = ser.read(2)  # Leer los 2 bytes del valor
+            if len(value_bytes) == 2:
+                # Unpack the value as a short in big endian
+                value = struct.unpack('>h', value_bytes)[0]
+                print(f"Command: {command}, Value: {value}")
+            else:
+                print("Data error: Not enough bytes read.")
+
 
 def start_serial_thread():
     thread = threading.Thread(target=read_from_serial)
