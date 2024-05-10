@@ -1,3 +1,7 @@
+
+#ifndef AXIS_H
+#define AXIS_H
+
 #include "AccelStepper.h"
 
 class Axis
@@ -63,3 +67,6 @@ private:
         return static_cast<long>(steps / stepsPerMM); // Convert steps back to millimeters
     }
 };
+
+
+#endif // AXIS_H

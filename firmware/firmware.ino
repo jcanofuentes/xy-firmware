@@ -1,38 +1,30 @@
 
 #include "src/CommandData.h"
 #include "src/GlobalVars.h"
-#include "src/Axis.h"
 
 #include "src/EventManager.h"
+#include "src/MotionController.h"
 
 EventManager eventManager;
 MotionController* motionController = nullptr;
-
-Axis* x;
-
-#ifdef DEBUG
-#define DEBUG_PRINT(x) Serial.print(x)
-#define DEBUG_PRINTLN(x) Serial.println(x)
-#else
-#define DEBUG_PRINT(x)
-#define DEBUG_PRINTLN(x)
-#endif
-
+MessageBus* messageBus = nullptr;
 
 using namespace SYSTEM_CONFIG;
 void setup()
 {
     Serial.begin(115200);
     Serial.println("Hello World!");
-
-    motionController = new MotionController();
+    messageBus = new MessageBus();
+    motionController = new MotionController(messageBus);
     eventManager.addComponent(motionController);
+
 }
 
 void loop()
 {
     if (Serial.available() >= 3)
     {
+        
         CommandData data;
         data.command = Serial.read();
         data.value = readShort();
@@ -42,10 +34,11 @@ void loop()
         DEBUG_PRINT(data.command);
         DEBUG_PRINT(", Value: ");
         DEBUG_PRINTLN(data.value);
+        
     }
 
-    // Actualiza el estado de los motores
-    motionController->update();
+/*     // Actualiza el estado de los motores
+    motionController->update(); */
 }
 
 short readShort()

@@ -13,13 +13,29 @@ class EventManager
 {
 private:
   IBaseComponent *storage_array[ELEMENT_COUNT_MAX];
+
   Vector<IBaseComponent *> components;
 
 public:
-  EventManager();
-  void addComponent(IBaseComponent *component);
-  void notify(const CommandData& data);
-  void printComponents();
+  EventManager()
+  {
+    components.setStorage(storage_array);
+  }
+
+  void addComponent(IBaseComponent *component)
+  {
+    // Serial << "EventManager addComponent" << endl;
+    components.push_back(component);
+  }
+
+  void notify(const CommandData &data)
+  {
+    // Serial << "EventManager notify: " << data << endl;
+    for (int i = 0; i < components.size(); i++)
+    {
+      components[i]->notify(data);
+    }
+  }
 };
 
 #endif // EVENT_MANAGER_H

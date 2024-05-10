@@ -51,7 +51,7 @@ namespace SYSTEM_CONFIG
 
     const int MAX_SPEED = 3000;                        // Max speed in mm/s
     const int ACCELERATION = 800;                      // Acceleration in mm/s^2
-    const float STEPS_PER_MM_X = 80.0;                 // Steps per mm in X axis
+    const float STEPS_PER_MM = 80.0;                   // Steps per mm
 }
 
 
