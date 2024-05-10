@@ -1,0 +1,21 @@
+# Ignorar archivos de configuración del sistema
+.DS_Store
+Thumbs.db
+
+# Ignorar archivos de ambiente virtual de Python
+venv/
+*.pyc
+.vscode/
+
+# Específico para el firmware de Arduino
+*.hex
+*.bin
+build/
+
+
+# GUI
+*.py[cod]
+__pycache__/
+gui/build/
+gui/dist/
+*.spec
