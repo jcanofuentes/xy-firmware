@@ -180,8 +180,10 @@ class MinimapFrame(ctk.CTkFrame):
         self.canvas.delete('all')
         self.draw_grid()
 
-# Clase principal de la aplicación
 class MinimapApp(ctk.CTk):
+    """
+    Main application window.
+    """
     def __init__(self):
         super().__init__()
         self.serial_manager = SerialPositionController('COM7', 115200)
