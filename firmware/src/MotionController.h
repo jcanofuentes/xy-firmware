@@ -33,7 +33,8 @@ public:
     }
     void notify(const CommandData &data) override
     {
-        switch (data.command)
+        //sendAck(data);
+         switch (data.command)
         {
         case 'X':
             moveX(data);
@@ -44,20 +45,15 @@ public:
         case 'O':
             goToOrigin(data);
             break;
-        // Send x position
         case 'x':
             getX(data);
-            long xPosition = x->currentPositionInMillimeters();
-            messageBus->sendMessage(CommandData('x', (short)xPosition));
             break;
-        // Send y position
         case 'y':
-            long yPosition = y->currentPositionInMillimeters();
-            messageBus->sendMessage(CommandData('y', (short)yPosition));
+            getY(data);
             break;
         default:
             break;
-        }
+        } 
     }
 
     void moveX(const CommandData &data)
@@ -70,19 +66,22 @@ public:
     {
         y->move(data.value);
         sendAck(data);
+    } 
+    
+   void getX(const CommandData &data)
+    {
+        long xPosition = x->currentPositionInMillimeters();
+        // Instead of sending the ack here, we send the position of the axis
+        //sendAck(data);
+        messageBus->sendMessage(CommandData('x', (short)xPosition));
     }
+
     void getY(const CommandData &data)
     {
         long yPosition = y->currentPositionInMillimeters();
-        messageBus->sendMessage(CommandData('x', (short)yPosition));
+        // Instead of sending the ack here, we send the position of the axis
         //sendAck(data);
-    }
-
-    void getX(const CommandData &data)
-    {
-        long xPosition = x->currentPositionInMillimeters();
-        messageBus->sendMessage(CommandData('x', (short)xPosition));
-        //sendAck(data);
+        messageBus->sendMessage(CommandData('y', (short)yPosition));
     }
 
     void goToOrigin(const CommandData &data)
