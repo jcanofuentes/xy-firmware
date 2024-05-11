@@ -50,6 +50,25 @@ public:
         case 'y':
             getY(data);
             break;
+        case 'S':
+            setMaxSpeed(data);
+            break;
+        case 'A':
+            setAcceleration(data);
+            break;
+        case 'D':
+            disableMotors(data);
+            break;
+        case 'E':    
+            enableMotors(data);
+            break;  
+        case 'H':
+            setHomePosition(data);
+            break;
+        case 'G':
+            goToHome(data);
+            break;
+
         default:
             break;
         } 
@@ -91,6 +110,50 @@ public:
         sendAck(data);
     }
 
+    void setMaxSpeed(const CommandData &data)
+    {
+        x->setMaxSpeed(data.value);
+        y->setMaxSpeed(data.value);
+        sendAck(data);
+    }
+
+    void setAcceleration(const CommandData &data)
+    {
+        x->setAcceleration(data.value);
+        y->setAcceleration(data.value);
+        sendAck(data);
+    }
+
+    void disableMotors(const CommandData &data)
+    {
+        x->stop();
+        y->stop();
+        digitalWrite(PIN_ENABLE_MOTORS, LOW);
+        sendAck(data);
+    }
+
+    void enableMotors(const CommandData &data)
+    {
+        x->enable();
+        y->enable();
+        digitalWrite(PIN_ENABLE_MOTORS, HIGH);
+        sendAck(data);
+    }
+
+    void setHomePosition(const CommandData &data)
+    {
+        x->setHomePosition();
+        y->setHomePosition();
+        sendAck(data);
+    }
+
+    void goToHome(const CommandData &data)
+    {
+        x->goToHome();
+        y->goToHome();
+        sendAck(data);
+    }
+
     void update()
     {
         x->update();
@@ -109,8 +172,8 @@ public:
 
     void sendAck(const CommandData &data)
     {
-        CommandData ack(data.command, data.value);
-        messageBus->sendMessage(ack);
+        //CommandData ack(data.command, data.value);
+        //messageBus->sendMessage(ack);
     }
 };
 

@@ -101,7 +101,7 @@ class MotionControlPanel(ctk.CTkFrame):
         self.btn_x_minus = ctk.CTkButton(self, text="Move X", command=lambda: self.move("X-100"))
         self.btn_x_minus.grid(row=2, column=0, padx=2, sticky="nsew")
 
-        self.btn_center = ctk.CTkButton(self, text="Center", command=self.center_command)
+        self.btn_center = ctk.CTkButton(self, text="Stop", command=self.center_command)
         self.btn_center.grid(row=2, column=1, padx=1, pady=1, sticky="nsew")
 
         self.btn_x_plus = ctk.CTkButton(self, text="Move X", command=lambda: self.move("X+100"))
@@ -143,17 +143,20 @@ class MotionControlPanel(ctk.CTkFrame):
         Activates the centering function of the device.
         """
         print("Activating Center Command")
+        self.serial_manager.send_command('D', 0) 
 
     def set_home(self):
         """
         Sets the current position as home.
         """
+        self.serial_manager.send_command('H', 0)
         print("Setting Home")
 
     def go_home(self):
         """
         Moves the device to the set home position.
         """
+        self.serial_manager.send_command('G', 0)
         print("Going Home")
 
 

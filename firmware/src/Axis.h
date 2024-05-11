@@ -32,6 +32,16 @@ public:
         stepper.moveTo(-999999); // Move stepper to a large negative position to ensure it hits the limit switch
     }
 
+    void setMaxSpeed(int speed)
+    {
+        stepper.setMaxSpeed(speed);
+    }
+
+    void setAcceleration(int acceleration)
+    {
+        stepper.setAcceleration(acceleration);
+    }
+
     void update()
     {
         if (movingToOrigin)
@@ -56,10 +66,31 @@ public:
         return stepper.currentPosition() == 0;
     }
 
+    void setHomePosition()
+    {
+        homePosition = stepper.currentPosition();
+    }
+
+    void goToHome()
+    {
+        stepper.moveTo(homePosition);
+    }
+
+    void stop()
+    {
+        stepper.stop();
+    }
+
+    void enable()
+    {
+        stepper.enableOutputs();
+    }
+
 private:
     AccelStepper stepper;
     int endStopPin;
     bool movingToOrigin;
+    long homePosition;
     float stepsPerMM = 80.0;
 
     long millimetersToSteps(int mm)
