@@ -26,8 +26,11 @@ void loop()
         eventManager.notify(data);
     }
 
-    // Actualiza el estado de los motores
+    // Update the motion controller
     motionController->update();
+    
+    // Send messages
+    messageBus->dispatchMessages();
 }
 
 // Read a short from the serial port
