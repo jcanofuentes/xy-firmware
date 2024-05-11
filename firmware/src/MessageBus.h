@@ -13,10 +13,15 @@ public:
 
     void sendMessage(const CommandData& data)
     {
+        sendSerial(data);
+    }
+
+    void sendSerial(const CommandData& data)
+    {
         Serial.write(data.command);
         Serial.write((byte)(data.value >> 8));
         Serial.write((byte)(data.value & 0xFF));
-    }
+    } 
 };
 
 #endif // MESSAGE_BUS_H

@@ -19,11 +19,10 @@ enum MotionControllerState
 class MotionController : public IBaseComponent
 {
 private:
-    Axis *x;
-    Axis *y;
-    MessageBus *messageBus;
-
-    MotionControllerState state = IDLE;
+    Axis *x;                              // Axis for the X motor                                       
+    Axis *y;                              // Axis for the Y motor
+    MotionControllerState state = IDLE;   // Current state of the motion controller
+    MessageBus *messageBus;               // Message bus to send messages to the serial port
 
 public:
     MotionController(MessageBus *bus) : messageBus(bus)
