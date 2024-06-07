@@ -62,7 +62,7 @@ messageBus = new MessageBus();
 ### Firmware Code Explanation
 The firmware.ino file contains the main logic for the firmware.
 
-
+```cpp
 #include "src/CommandData.h"
 #include "src/EventManager.h"
 #include "src/MotionController.h"
@@ -101,7 +101,7 @@ short readShort()
 }
 ```
 ### Serial Communication
-The firmware uses the Serial object for communication with the GUI. The baud rate is set to 115200 in the setup function.
+The firmware uses the Serial object for communication with the GUI. The baud rate is set to 115200.
 
 ### Receiving Commands
 Commands are received in the loop function. When at least 3 bytes are available in the serial buffer, the firmware reads the command and value and notifies the EventManager.
@@ -113,6 +113,7 @@ The EventManager notifies the relevant components to handle the commands. The Mo
 The MessageBus sends messages back to the GUI, providing feedback about the system's status.
 
 ### Directory Structure
+```bash
 xy-firmware/
 │-- firmware/
 │   │-- firmware.ino
@@ -125,6 +126,6 @@ xy-firmware/
 │   │-- src/
 │-- .gitignore
 │-- LICENSE
-
+```
 ### License
 This project is licensed under the terms of the MIT License.
